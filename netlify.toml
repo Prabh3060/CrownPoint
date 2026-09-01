@@ -1,0 +1,10 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Lets upload.html call /api/upload-url and /api/notify without
+# needing to know about Netlify's actual /.netlify/functions/ path.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Your Documents | Crownpoint Tax Advisory</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0A0A0A; --gold: #C9943A; --gold-bright: #E8B84B; --gold-light: #F0CC7A;
+    --gold-dim: rgba(201,148,58,0.12); --off-white: #F7F4EE; --fog: #EBEBEB;
+    --slate: #555; --muted: #888; --white: #fff;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--black); line-height: 1.6; min-height: 100vh; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 60px 20px 80px; }
+  .logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
+  .logo-row img { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(201,148,58,0.3); }
+  .logo-row strong { display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .logo-row span { display: block; font-size: 0.62rem; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; }
+
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 10px; }
+  .lede { color: var(--slate); font-size: 0.9rem; margin-bottom: 30px; max-width: 520px; }
+
+  .card { background: var(--white); border: 1px solid rgba(0,0,0,0.07); border-radius: 6px; padding: 28px; margin-bottom: 20px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--slate); margin-bottom: 6px; }
+  .field input { width: 100%; padding: 11px 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 3px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: var(--off-white); }
+  .field input:focus { outline: none; border-color: var(--gold); background: var(--white); }
+
+  .dropzone { border: 2px dashed rgba(201,148,58,0.4); border-radius: 6px; padding: 34px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+  .dropzone.dragover { border-color: var(--gold); background: var(--gold-dim); }
+  .dropzone p { font-size: 0.88rem; color: var(--slate); }
+  .dropzone strong { color: var(--gold); }
+  .dropzone input[type="file"] { display: none; }
+
+  .file-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .file-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--off-white); border-radius: 4px; font-size: 0.82rem; }
+  .file-item .file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-item .file-status { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+  .file-item .remove-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; line-height: 1; padding: 2px 4px; }
+  .file-item .remove-btn:hover { color: #c0392b; }
+  .file-progress-track { height: 4px; background: var(--fog); border-radius: 2px; overflow: hidden; width: 100%; margin-top: 4px; }
+  .file-progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.2s; }
+
+  .btn-primary { background: var(--gold); color: var(--black); padding: 14px 30px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: none; cursor: pointer; border-radius: 3px; width: 100%; margin-top: 8px; transition: background 0.2s; }
+  .btn-primary:hover:not(:disabled) { background: var(--gold-bright); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .note { font-size: 0.76rem; color: var(--muted); line-height: 1.6; margin-top: 14px; }
+
+  .status-msg { font-size: 0.85rem; padding: 12px 14px; border-radius: 4px; margin-top: 16px; display: none; }
+  .status-msg.error { display: block; background: #fdeeee; color: #a83232; }
+  .status-msg.success { display: block; background: #eafaf0; color: #1f7a4d; }
+
+  .success-screen { text-align: center; padding: 40px 20px; }
+  .success-screen .check { font-size: 2.4rem; color: var(--gold); margin-bottom: 14px; }
+  .success-screen h2 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+  .success-screen p { color: var(--slate); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="logo-row">
+    <img src="https://cp-tax.com/images/logo.jpg" alt="Crownpoint Tax Advisory logo">
+    <div><strong>Crownpoint</strong><span>Tax Advisory</span></div>
+  </div>
+
+  <h1>Upload Your Documents</h1>
+  <p class="lede">Files are sent directly to encrypted, private storage — no email attachments, no waiting on file size limits. We're notified the moment your upload finishes.</p>
+
+  <div class="card" id="formCard">
+    <div class="field">
+      <label for="clientName">Your Name</label>
+      <input type="text" id="clientName" placeholder="Jane Smith" required>
+    </div>
+    <div class="field">
+      <label for="clientEmail">Your Email</label>
+      <input type="email" id="clientEmail" placeholder="jane@example.com" required>
+    </div>
+
+    <div class="field">
+      <label>Files</label>
+      <div class="dropzone" id="dropzone">
+        <p><strong>Click to browse</strong> or drag files here<br>PDF, JPG, PNG, DOCX, XLSX, CSV — up to 26MB each</p>
+        <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.docx,.xlsx,.xls,.csv,.zip">
+      </div>
+      <div class="file-list" id="fileList"></div>
+    </div>
+
+    <button class="btn-primary" id="submitBtn" onclick="submitUpload()" disabled>Add files to continue</button>
+    <div class="status-msg" id="statusMsg"></div>
+
+    <p class="note">Your files are encrypted in transit and in storage, and only accessible via one-time links sent to our team. Please don't type full Social Security numbers into any text field — only include them within the documents themselves.</p>
+  </div>
+
+  <div class="card success-screen" id="successCard" style="display:none;">
+    <div class="check">✓</div>
+    <h2>Documents received</h2>
+    <p>Thanks — we've got your files and will be in touch if anything else is needed.</p>
+  </div>
+
+</div>
+
+<script>
+  const API_BASE = ''; // same-origin API routes: /api/upload-url, /api/notify
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const fileListEl = document.getElementById('fileList');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  const MAX_FILE_SIZE = 26 * 1024 * 1024; // keep in sync with server-side limit
+  let selectedFiles = []; // { file, id }
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+    addFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', () => addFiles(fileInput.files));
+
+  function addFiles(fileListArg) {
+    Array.from(fileListArg).forEach((file) => {
+      if (file.size > MAX_FILE_SIZE) {
+        showStatus(`"${file.name}" is over the 26MB limit and was skipped.`, 'error');
+        return;
+      }
+      selectedFiles.push({ file, id: crypto.randomUUID() });
+    });
+    renderFileList();
+  }
+
+  function removeFile(id) {
+    selectedFiles = selectedFiles.filter((f) => f.id !== id);
+    renderFileList();
+  }
+
+  function renderFileList() {
+    fileListEl.innerHTML = '';
+    selectedFiles.forEach(({ file, id }) => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.id = 'file-' + id;
+      item.innerHTML = `
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="file-name">${escapeHtml(file.name)}</span>
+            <span class="file-status" id="status-${id}">${(file.size / 1024 / 1024).toFixed(1)} MB</span>
+          </div>
+          <div class="file-progress-track"><div class="file-progress-fill" id="progress-${id}"></div></div>
+        </div>
+        <button class="remove-btn" onclick="removeFile('${id}')" title="Remove">✕</button>
+      `;
+      fileListEl.appendChild(item);
+    });
+    submitBtn.disabled = selectedFiles.length === 0;
+    submitBtn.textContent = selectedFiles.length === 0
+      ? 'Add files to continue'
+      : `Upload ${selectedFiles.length} File${selectedFiles.length === 1 ? '' : 's'}`;
+  }
+
+  function escapeHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function showStatus(msg, type) {
+    statusMsg.textContent = msg;
+    statusMsg.className = 'status-msg ' + type;
+  }
+
+  function uploadFileWithProgress(uploadUrl, file, onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', uploadUrl);
+      xhr.setRequestHeader('Content-Type', file.type);
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+      };
+      xhr.onload = () => (xhr.status >= 200 && xhr.status < 300) ? resolve() : reject(new Error('Upload failed: ' + xhr.status));
+      xhr.onerror = () => reject(new Error('Network error during upload'));
+      xhr.send(file);
+    });
+  }
+
+  async function submitUpload() {
+    const name = document.getElementById('clientName').value.trim();
+    const email = document.getElementById('clientEmail').value.trim();
+
+    if (!name || !email) {
+      showStatus('Please enter your name and email before uploading.', 'error');
+      return;
+    }
+    if (selectedFiles.length === 0) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading…';
+    statusMsg.className = 'status-msg';
+
+    const sessionId = crypto.randomUUID();
+    const uploaded = [];
+
+    try {
+      for (const { file, id } of selectedFiles) {
+        document.getElementById('status-' + id).textContent = 'Starting…';
+
+        const res = await fetch(API_BASE + '/api/upload-url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, fileName: file.name, fileType: file.type, fileSize: file.size }),
+        });
+        if (!res.ok) throw new Error((await res.json()).error || 'Could not start upload');
+        const { uploadUrl, key } = await res.json();
+
+        await uploadFileWithProgress(uploadUrl, file, (pct) => {
+          document.getElementById('progress-' + id).style.width = pct + '%';
+          document.getElementById('status-' + id).textContent = pct + '%';
+        });
+
+        document.getElementById('status-' + id).textContent = 'Done';
+        uploaded.push({ name: file.name, key });
+      }
+
+      const notifyRes = await fetch(API_BASE + '/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, sessionId, files: uploaded }),
+      });
+      if (!notifyRes.ok) throw new Error('Files uploaded, but the notification email failed to send.');
+
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successCard').style.display = 'block';
+    } catch (err) {
+      console.error(err);
+      showStatus(err.message || 'Something went wrong. Please try again or email us directly.', 'error');
+      submitBtn.disabled = false;
+      renderFileList();
+    }
+  }
+</script>
+</body>
+</html>

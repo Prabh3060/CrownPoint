@@ -1,0 +1,11 @@
+{
+  "name": "crownpoint-upload-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure client document upload backend for Crownpoint Tax Advisory",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/s3-request-presigner": "^3.600.0",
+    "resend": "^3.4.0"
+  }
+}
