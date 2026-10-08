@@ -1,0 +1,44 @@
+# Crownpoint Tax Advisory — robots.txt
+# Allow standard search engine crawlers
+User-agent: *
+Allow: /
+
+# Explicitly allow known AI/answer-engine crawlers so this site can be
+# indexed, cited, and recommended by AI assistants and answer engines.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://cp-tax.com/sitemap.xml

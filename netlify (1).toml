@@ -1,0 +1,85 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Lets upload.html call /api/upload-url and /api/notify without
+# needing to know about Netlify's actual /.netlify/functions/ path.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/free-consultation/"
+  to = "/free-consultation.html"
+  status = 200
+
+[[redirects]]
+  from = "/free-consultation"
+  to = "/free-consultation.html"
+  status = 200
+
+[[redirects]]
+  from = "/business-tax-returns/"
+  to = "/business-tax-returns.html"
+  status = 200
+
+[[redirects]]
+  from = "/business-tax-returns"
+  to = "/business-tax-returns.html"
+  status = 200
+
+[[redirects]]
+  from = "/irs-representation/"
+  to = "/irs-representation.html"
+  status = 200
+
+[[redirects]]
+  from = "/irs-representation"
+  to = "/irs-representation.html"
+  status = 200
+
+[[redirects]]
+  from = "/tax-planning/"
+  to = "/tax-planning.html"
+  status = 200
+
+[[redirects]]
+  from = "/tax-planning"
+  to = "/tax-planning.html"
+  status = 200
+
+[[redirects]]
+  from = "/find-your-plan/"
+  to = "/find-your-plan.html"
+  status = 200
+
+[[redirects]]
+  from = "/find-your-plan"
+  to = "/find-your-plan.html"
+  status = 200
+
+[[redirects]]
+  from = "/how-it-works/"
+  to = "/how-it-works.html"
+  status = 200
+
+[[redirects]]
+  from = "/how-it-works"
+  to = "/how-it-works.html"
+  status = 200
+
+[[redirects]]
+  from = "/images/logo.jpg"
+  to = "/logo.jpg"
+  status = 200
+
+[[redirects]]
+  from = "/images/card-hero.jpg"
+  to = "/card-hero.jpg"
+  status = 200
+
+[[redirects]]
+  from = "/images/card-lockup.png"
+  to = "/card-lockup.png"
+  status = 200
